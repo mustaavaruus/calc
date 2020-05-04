@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue calculator</title>
+  <link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="style/style.css">
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="main-wrapper">
+        <header>
+            <h1>
+                calculator
+            </h1>
+            <ul>
+                <li>
+                    <a href="#"><i class="fa fa-github  fa-2x"></i></a>
+                </li>
+                <li>
+                    <a href="mailto:rrybakov@kmis.ru"><i class="fa fa-envelope-square  fa-2x"></i></a>
+                </li>
+            </ul>
+        </header>
+        <div id="work-wrapper">
+            <header>
+                calc-form
+            </header>
+            <p>Fill two input boxes and choose operation</p>
+            <input id="firstNum" type="text" size="40" v-model="firstNum">
+            <div id="button-container">
+
+            </div>
+            <input id="secondNum" type="text" size="40" v-model="secondNum">
+            <div id="button-container">
+                <button v-on:click="switchOperator('add')">+</button>
+                <button v-on:click="switchOperator('sub')">-</button>
+                <button v-on:click="switchOperator('mult')">*</button>
+                <button v-on:click="switchOperator('div')">/</button>
+            </div>
+            <p>{{getResult}}</p>
+        </div>
+      
+    </div>
+
+  <script>
+    var app = new Vue({
+      el: '#work-wrapper',
+      data: {
+        message: 'Hello Vue!',
+        firstNum: 0,
+        secondNum: 0,
+        resultNum: 0,
+        operation: "add"
+
+      },
+      methods: {
+
+        switchOperator(value) {
+            this.operation = value
+        },
+        getAdd() {
+            return parseInt(this.firstNum) + parseInt(this.secondNum)
+        },
+        getSub() {
+            return parseInt(this.firstNum) - parseInt(this.secondNum)
+        },
+        getMult() {
+            return parseInt(this.firstNum) * parseInt(this.secondNum)
+        },
+        getDiv() {
+            return parseInt(this.firstNum) / parseInt(this.secondNum)
+        }
+      },
+      computed: {
+          
+          getResult() {
+              if (!Number.isInteger(parseInt(this.firstNum))) {
+                  return "error"
+              }
+
+              if (!Number.isInteger(parseInt(this.secondNum))) {
+                  return "error"
+              }
+
+              if (this.operation == "add") {
+                return this.getAdd()
+              }
+
+              if (this.operation == "sub") {
+                return this.getSub()
+              }
+
+              if (this.operation == "mult") {
+                return this.getMult()
+              }
+
+              if (this.operation == "div") {
+                return this.getDiv()
+              }
+          }
+      }
+    })
+  </script>
+</body>
+</html>
